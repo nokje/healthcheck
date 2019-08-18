@@ -6,7 +6,7 @@
 #TODO list
 # Validate -p value (port range)
 
-#Import the modules part of this script (these need to be installed on forehand via > pip install)
+#Import the modules part of this script (these may be needing manual installation via > pip install)
 import requests, time, json, os, sys, argparse, socket
 from datetime import datetime
 
