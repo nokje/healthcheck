@@ -27,7 +27,7 @@ except socket.error:
 #if args.p in range(1,65535):
 #   print( " %s is in the range"%str(n))
 #else :
-#   print("The number is outside the given range.")
+#   print('HealthCheck [%s]: The given portnumber is outside the TCP portrange (1-65535).' %run_id)
 #   exit(1)
 
 #Suppres anoying InsecureRequestWarning
@@ -47,11 +47,11 @@ if os.path.isdir(data_run) == False:
     os.makedirs(data_run)
 
 #Function to cURL the data
-def req_data( api, file_name ):
+def req_data( end_point, file_name ):
     if args.p == None:
-        req_url = ''.join(['https://', args.IP_ADDR, api, auth])
+        req_url = ''.join(['https://', args.IP_ADDR, end_point, auth])
     else:
-        req_url = ''.join(['https://', args.IP_ADDR,':', args.p, api, auth])
+        req_url = ''.join(['https://', args.IP_ADDR,':', args.p, end_point, auth])
     try:
         query = requests.get ( req_url, verify = False )
     except requests.ConnectionError, e:
@@ -61,8 +61,8 @@ def req_data( api, file_name ):
     return;
 
 print('HealthCheck [%s]: Acquired the data and stored it in my ./data folder.' %run_id )
-req_data( api = '/api/v2/monitor/system/available-interfaces/select', file_name = 'interface.txt' )
-req_data( api = '/api/v2/monitor/router/ipv4/select', file_name = 'routes.txt' )
-req_data( api = '/api/v2/monitor/system/status/select', file_name = 'system.txt' )
+req_data( end_point = '/api/v2/monitor/system/available-interfaces/select', file_name = 'interface.txt' )
+req_data( end_point = '/api/v2/monitor/router/ipv4/select', file_name = 'routes.txt' )
+req_data( end_point = '/api/v2/monitor/system/status/select', file_name = 'system.txt' )
 
-print('HealthCheck [%s]: Script finished the run.' %run_id )
+print('HealthCheck [%s]: Script finished its run.' %run_id )
